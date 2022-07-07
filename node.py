@@ -27,6 +27,15 @@ class Node:
         self.is_valid(next_)
         self.next = next_
 
+    @property
+    def next(self):
+        return self._next
+
+    @next.setter
+    def next(self, next_node):
+        self.is_valid(next_node)
+        self._next = next_node
+
 
 class DoubleLinkedNode(Node):
     """ Класс, который описывает узел двусвязного списка."""
@@ -37,7 +46,8 @@ class DoubleLinkedNode(Node):
         :param prev : предыдущий узел если он есть
         """
         super().__init__(value, next_)
-        self.prev = prev
+
+        self._prev = prev
 
     def __repr__(self) -> str:
         next_prev = None if self.prev is None else f"DoubleLinkedNode({self.prev})"
@@ -46,7 +56,6 @@ class DoubleLinkedNode(Node):
         return f"DoubleLinkedNode({self.value}, {next_prev}, {next_repr})"
 
     def __str__(self) -> str:
-        super().__str__()
         return str(self.value)
 
     @property
@@ -58,18 +67,31 @@ class DoubleLinkedNode(Node):
         self._prev = prev
 
 
-# if __name__ == "__main__":
-#     f = DoubleLinkedNode(1)
-#     s = DoubleLinkedNode(2)
-#     t = DoubleLinkedNode(3)
-#     fo = DoubleLinkedNode(4)
-#
-#     f.next = s
-#     s.next = t
-#     s.prev = f
-#     t.prev = s
-#     t.next = fo
-#
-#     print(repr(f))
-#     print(repr(s))
-#     print(repr(t))
+if __name__ == "__main__":
+    # first_node = Node("first_node")
+    # second_node = Node("second_node")
+    #
+    # first_node.set_next(second_node)
+    #
+    # print(repr(first_node))
+    # print(repr(second_node))
+    first_node = DoubleLinkedNode(1)
+    second_node = DoubleLinkedNode(2)
+    third_node = DoubleLinkedNode(3)
+    fourth_node = DoubleLinkedNode(4)
+
+    first_node.next = second_node
+    second_node.next = third_node
+    second_node.prev = first_node
+    third_node.prev = second_node
+    third_node.next = fourth_node
+    fourth_node.prev = third_node
+
+    print(repr(first_node))
+    print(repr(second_node))
+    print(repr(third_node))
+    print(repr(fourth_node))
+    # print(str(first_node))
+    # print(str(second_node))
+    # print(str(third_node))
+    # print(str(fourth_node))
