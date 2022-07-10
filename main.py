@@ -10,8 +10,8 @@ class LinkedList(MutableSequence):
     def __init__(self, data: Iterable = None):
         """Конструктор связного списка"""
         self._len = 0
-        self.head: Optional[Node] = None
-        self.tail = self.head
+        self._head: Optional[Node] = None
+        self._tail = self._head
         super().__init__()
 
         if data is not None:
@@ -22,8 +22,8 @@ class LinkedList(MutableSequence):
         """ Добавление элемента в конец связного списка. """
         append_node = Node(value)
 
-        if self.head is None:
-            self.head = append_node
+        if self._head is None:
+            self._head = append_node
         else:
             last_index = self._len - 1
             last_node = self.step_by_step_on_nodes(last_index)
@@ -54,7 +54,7 @@ class LinkedList(MutableSequence):
         if not 0 <= index < self._len:  # для for
             raise IndexError()
 
-        current_node = self.head
+        current_node = self._head
         for _ in range(index):
             current_node = current_node.next
 
@@ -78,7 +78,7 @@ class LinkedList(MutableSequence):
             raise IndexError()
 
         if index == 0:
-            self.head = self.head.next
+            self._head = self._head.next
         elif index == self._len - 1:
             tail = self.step_by_step_on_nodes(index - 1)
             tail.next = None
@@ -107,8 +107,8 @@ class LinkedList(MutableSequence):
         insert_node = Node(value)
 
         if index == 0:
-            insert_node.next = self.head
-            self.head = insert_node
+            insert_node.next = self._head
+            self._head = insert_node
             self._len += 1
         elif index >= self._len - 1:
             self.append(value)
@@ -133,11 +133,11 @@ class DoubleLinkedList(LinkedList):
         """ Добавление элемента в конец связного списка. """
         append_node = DoubleLinkedNode(value)
 
-        if self.head is None:
-            self.head = self.tail = append_node
+        if self._head is None:
+            self._head = self._tail = append_node
         else:
-            self.linked_nodes(self.tail, append_node)
-            self.tail = append_node
+            self.linked_nodes(self._tail, append_node)
+            self._tail = append_node
 
         self._len += 1
 

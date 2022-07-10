@@ -65,6 +65,7 @@ class DoubleLinkedNode(Node):
     @prev.setter
     def prev(self, prev: Optional["Node"] = None):
         self._prev = prev
+        self.is_valid(prev)
 
 
 if __name__ == "__main__":
@@ -91,6 +92,7 @@ if __name__ == "__main__":
     print(repr(second_node))
     print(repr(third_node))
     print(repr(fourth_node))
+
     # print(str(first_node))
     # print(str(second_node))
     # print(str(third_node))
