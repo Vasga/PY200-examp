@@ -11,19 +11,23 @@ class Node:
         :param next_: следующий узел, если он есть
         """
         self.value = value
-        self.next = next_  # вызовется setter
+        self.next = next_
 
     def __repr__(self) -> str:
+        """ Метод __repr__"""
         return f"Node({self.value}, {None})" if self.next is None else f"Node({self.value}, Node({self.next}))"
 
     def __str__(self) -> str:
+        """ Метод __str__"""
         return str(self.value)
 
     def is_valid(self, node: Any) -> None:
+        """ Метод проверки корректности связываемого узла """
         if not isinstance(node, (type(None), Node)):
             raise TypeError
 
     def set_next(self, next_: Optional["Node"] = None) -> None:
+        """ Метод должен проверять корректность узла и устанавливать значение атрибуту next"""
         self.is_valid(next_)
         self.next = next_
 
@@ -43,19 +47,22 @@ class DoubleLinkedNode(Node):
     def __init__(self, value: Any, next_: Optional["Node"] = None, prev: Optional["Node"] = None):
         """
         Создаем новый узел двуcвязного списка
+        :param value: Любое значение, которое помещено в узел
+        :param next_: следующий узел, если он есть
         :param prev : предыдущий узел если он есть
         """
         super().__init__(value, next_)
-
         self._prev = prev
 
     def __repr__(self) -> str:
+        """  Перегружаем метод __repr__"""
         next_prev = None if self.prev is None else f"DoubleLinkedNode({self.prev})"
         next_repr = None if self.next is None else f"DoubleLinkedNode({self.next})"
 
         return f"DoubleLinkedNode({self.value}, {next_prev}, {next_repr})"
 
     def __str__(self) -> str:
+        """ Метод __str__"""
         return str(self.value)
 
     @property
@@ -69,13 +76,7 @@ class DoubleLinkedNode(Node):
 
 
 if __name__ == "__main__":
-    # first_node = Node("first_node")
-    # second_node = Node("second_node")
-    #
-    # first_node.set_next(second_node)
-    #
-    # print(repr(first_node))
-    # print(repr(second_node))
+
     first_node = DoubleLinkedNode(1)
     second_node = DoubleLinkedNode(2)
     third_node = DoubleLinkedNode(3)
@@ -93,7 +94,3 @@ if __name__ == "__main__":
     print(repr(third_node))
     print(repr(fourth_node))
 
-    # print(str(first_node))
-    # print(str(second_node))
-    # print(str(third_node))
-    # print(str(fourth_node))

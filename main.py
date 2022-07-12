@@ -62,15 +62,20 @@ class LinkedList(MutableSequence):
 
     def __getitem__(self, index: int) -> Any:
         """ Метод возвращает значение узла по указанному индексу. """
+        if not isinstance(index, int):
+            raise TypeError()
         node = self.step_by_step_on_nodes(index)
         return node.value
 
     def __setitem__(self, index: int, value: Any) -> None:
         """ Метод устанавливает значение узла по указанному индексу. """
+        if not isinstance(index, int):
+            raise TypeError()
         node = self.step_by_step_on_nodes(index)
         node.value = value
 
     def __delitem__(self, index: int):
+        """ Метод удаляет значение узла по указанному индексу. """
         if not isinstance(index, int):
             raise TypeError()
 
@@ -92,15 +97,19 @@ class LinkedList(MutableSequence):
         self._len -= 1
 
     def to_list(self) -> list:
+        """ Метод который формирует  из LinkedList встроенный list"""
         return [linked_list_value for linked_list_value in self]
 
     def __repr__(self) -> str:
+        """  Метод __repr__ который будет выводить представление LinkedList """
         return f"{self.__class__.__name__}({self.to_list()})"
 
     def __str__(self) -> str:
+        """ Метод __str__ который будет выводить представление LinkedList"""
         return f"{self.to_list()}"
 
     def insert(self, index: int, value: Any) -> None:
+        """ Метод вставки узла по индексу"""
         if not isinstance(index, int):
             raise TypeError()
 
@@ -130,7 +139,7 @@ class DoubleLinkedList(LinkedList):
         right_node.prev = left_node
 
     def append(self, value: Any):
-        """ Добавление элемента в конец связного списка. """
+        """ Перегружаем метод добавления элемента в конец связного списка. """
         append_node = DoubleLinkedNode(value)
 
         if self._head is None:
@@ -144,24 +153,18 @@ class DoubleLinkedList(LinkedList):
 
 if __name__ == '__main__':
     list_ = (1, 2, 3, 7, 9, 10)
-    ll = LinkedList(list_)
-    print(repr(ll))
-
     linked_list = DoubleLinkedList(list_)
     print(repr(linked_list))
 
     linked_list.insert(0, 0)
     print(repr(linked_list))
 
-    # linked_list.insert(len(linked_list), len(linked_list))
-    # print(linked_list)
-
-    # linked_list.insert(100, 100)
-    # print(linked_list)
     linked_list.append(88)
+    print(repr(linked_list))
+
     linked_list.__setitem__(0, 22)
     print(repr(linked_list))
-    linked_list.__delitem__(6)
+
+    linked_list.__delitem__(0)
     print(repr(linked_list))
-    # print(linked_list[2] == "wow")
-    # print(linked_list.__getitem__(2))
+
